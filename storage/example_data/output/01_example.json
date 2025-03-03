@@ -1,19 +1,40 @@
 {
   "event": [
     {
-      "date": "02-03-2025",
+      "event_date": "02-03-2025",
       "cater": "Mighty Quinn's BBQ",
       "food": [
         {
           "name": "BBQ Ribs",
           "description": "",
-          "preference": [
+          "preferences": [
             {
               "name": "Gluten Free",
               "symbol": "example link"
             }
           ],
-          "allergen": [
+          "allergens": [
+            "Garlic",
+            "Nightshades",
+            "Pork"
+          ]
+        }
+      ]
+    },
+    {
+      "event_date": "02-03-2025",
+      "cater": "Mighty Quinn's BBQ Part 2",
+      "food": [
+        {
+          "name": "BBQ Ribs",
+          "description": "",
+          "preferences": [
+            {
+              "name": "Gluten Free",
+              "symbol": "example link"
+            }
+          ],
+          "allergens": [
             "Garlic",
             "Nightshades",
             "Pork"
