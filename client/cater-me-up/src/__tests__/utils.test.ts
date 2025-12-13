@@ -25,7 +25,7 @@ describe('isValidMenu', () => {
     }
   ];
   test('validates correct menu combinations', () => {
-    const menusWithCuisine = sampleMenus.map(menu => ({ ...menu, cuisine: 'italian' }));
+    const menusWithCuisine = sampleMenus.map(menu => ({ ...menu, cuisine: 'Olive & Basil' }));
     return expect(isValidMenu('2025-03-17', 'olive-and-basil', menusWithCuisine)).toBe(true);
   });
 
