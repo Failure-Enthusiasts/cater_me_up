@@ -4,6 +4,7 @@ import { useErrorHandler } from '@/hooks/useErrorHandler';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import ErrorDisplay from '@/components/ErrorDisplay';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import Link from 'next/link';
 import menuJson from './utils/menuData.json';
 import { toSlug } from '@/utils/menuHelpers';
 
@@ -14,15 +15,13 @@ function formatEventDate(iso: string) {
   return d.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-function getAllEventsSorted() {
-  // Get all events, sorted by date ascending
-  return [...(menuJson.events || [])].sort((a, b) => new Date(a.iso_date).getTime() - new Date(b.iso_date).getTime());
-}
+// Compute sorted events once at module level to avoid sorting on every render
+const sortedEvents = [...(menuJson.events || [])].sort((a, b) => new Date(a.iso_date).getTime() - new Date(b.iso_date).getTime());
 
 function getEventIndices() {
   const today = new Date();
   today.setHours(0,0,0,0);
-  const allEvents = getAllEventsSorted();
+  const allEvents = sortedEvents;
   let prevIdx = -1, currIdx = -1, nextNextIdx = -1;
   for (let i = 0; i < allEvents.length; i++) {
     const eventDate = new Date(allEvents[i].iso_date);
@@ -116,7 +115,12 @@ function HomeContent() {
                   <li key={item.name}>{item.name}</li>
                 ))}
               </ul>
-              <button className="text-xs text-blue-700 hover:underline" onClick={() => window.location.href = `/${prevEvent.iso_date}/${toSlug(prevEvent.cuisine)}`}>View Menu</button>
+              <Link
+                className="text-xs text-blue-700 hover:underline"
+                href={`/${prevEvent.iso_date}/${toSlug(prevEvent.cuisine)}`}
+              >
+                View Menu
+              </Link>
             </div>
           )}
           {/* Main Event Card */}
@@ -152,12 +156,12 @@ function HomeContent() {
             })() : <div className="text-gray-500">No upcoming events available</div>}
             {currEvent && (
               <div className="flex justify-center mt-4">
-                <button
-                  className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors text-sm font-semibold"
-                  onClick={() => window.location.href = `/${currEvent.iso_date}/${toSlug(currEvent.cuisine)}`}
+                <Link
+                  className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors text-sm font-semibold inline-block"
+                  href={`/${currEvent.iso_date}/${toSlug(currEvent.cuisine)}`}
                 >
                   View Full Menu
-                </button>
+                </Link>
               </div>
             )}
           </div>
@@ -172,7 +176,12 @@ function HomeContent() {
                   <li key={item.name}>{item.name}</li>
                 ))}
               </ul>
-              <button className="text-xs text-blue-700 hover:underline" onClick={() => window.location.href = `/${nextNextEvent.iso_date}/${toSlug(nextNextEvent.cuisine)}`}>View Menu</button>
+              <Link
+                className="text-xs text-blue-700 hover:underline"
+                href={`/${nextNextEvent.iso_date}/${toSlug(nextNextEvent.cuisine)}`}
+              >
+                View Menu
+              </Link>
             </div>
           )}
         </div>

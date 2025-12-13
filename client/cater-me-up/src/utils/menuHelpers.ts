@@ -9,9 +9,13 @@ export const toSlug = (str: string): string => {
 
     // First, trim whitespace and convert to lowercase
     let slug = str.trim().toLowerCase();
+
+    // Transliterate specific characters (like accented e)
+    // Basic replacements for common accents
+    slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     
-    // Replace '&' with 'and'
-    slug = slug.replace(/&/g, 'and');
+    // Replace '&' with 'and' with spaces to ensure separation
+    slug = slug.replace(/&+/g, ' and ');
     
     // Replace multiple spaces with single dash
     slug = slug.replace(/\s+/g, '-');
