@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useErrorHandler } from '@/hooks/useErrorHandler';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import ErrorDisplay from '@/components/ErrorDisplay';
@@ -116,7 +117,8 @@ function HomeContent() {
                   <li key={item.name}>{item.name}</li>
                 ))}
               </ul>
-              <button className="text-xs text-blue-700 hover:underline" onClick={() => window.location.href = `/${prevEvent.iso_date}/${toSlug(prevEvent.cuisine)}`}>View Menu</button>
+              {/* ⚡ Bolt: Optimized navigation to use client-side routing instead of full page reload */}
+              <Link href={`/${prevEvent.iso_date}/${toSlug(prevEvent.cuisine)}`} className="text-xs text-blue-700 hover:underline">View Menu</Link>
             </div>
           )}
           {/* Main Event Card */}
@@ -152,12 +154,13 @@ function HomeContent() {
             })() : <div className="text-gray-500">No upcoming events available</div>}
             {currEvent && (
               <div className="flex justify-center mt-4">
-                <button
-                  className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors text-sm font-semibold"
-                  onClick={() => window.location.href = `/${currEvent.iso_date}/${toSlug(currEvent.cuisine)}`}
+                {/* ⚡ Bolt: Optimized navigation to use client-side routing */}
+                <Link
+                  href={`/${currEvent.iso_date}/${toSlug(currEvent.cuisine)}`}
+                  className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors text-sm font-semibold inline-block"
                 >
                   View Full Menu
-                </button>
+                </Link>
               </div>
             )}
           </div>
@@ -172,7 +175,8 @@ function HomeContent() {
                   <li key={item.name}>{item.name}</li>
                 ))}
               </ul>
-              <button className="text-xs text-blue-700 hover:underline" onClick={() => window.location.href = `/${nextNextEvent.iso_date}/${toSlug(nextNextEvent.cuisine)}`}>View Menu</button>
+              {/* ⚡ Bolt: Optimized navigation to use client-side routing */}
+              <Link href={`/${nextNextEvent.iso_date}/${toSlug(nextNextEvent.cuisine)}`} className="text-xs text-blue-700 hover:underline">View Menu</Link>
             </div>
           )}
         </div>
